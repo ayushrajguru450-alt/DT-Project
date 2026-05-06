@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TiffinWala — Fresh Home-Cooked Meals, Delivered Daily</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --em: #059669;
+  --em-light: #d1fae5;
+  --em-mid: #10b981;
+  --em-dark: #065f46;
+  --cream: #fafaf7;
+  --warm: #f5f0e8;
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --border: rgba(0,0,0,0.08);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--text);overflow-x:hidden;}
+
+/* ─── NAV ─── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,0.96);
+  backdrop-filter:blur(12px);
+  border-bottom:.5px solid var(--border);
+  padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;
+}
+.nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--em-dark);display:flex;align-items:center;gap:8px;text-decoration:none;}
+.logo-dot{width:8px;height:8px;background:var(--em);border-radius:50%;animation:pulse-dot 2s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{transform:scale(1);}50%{transform:scale(1.4);}}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s;cursor:pointer;}
+.nav-links a:hover{color:var(--em-dark);}
+.nav-actions{display:flex;align-items:center;gap:12px;}
+.btn-login{font-size:14px;font-weight:500;padding:8px 20px;border:1.5px solid var(--em);border-radius:8px;background:transparent;color:var(--em-dark);cursor:pointer;transition:all .2s;}
+.btn-login:hover{background:var(--em-light);}
+.btn-order{font-size:14px;font-weight:600;padding:8px 20px;border:none;border-radius:8px;background:var(--em);color:white;cursor:pointer;transition:all .2s;}
+.btn-order:hover{background:var(--em-dark);transform:translateY(-1px);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s;}
+.mobile-menu{display:none;flex-direction:column;gap:0;background:white;border-bottom:1px solid var(--border);padding:0;}
+.mobile-menu a{padding:14px 2rem;font-size:15px;font-weight:500;color:var(--text);text-decoration:none;border-bottom:.5px solid var(--border);}
+.mobile-menu .mob-btns{display:flex;gap:10px;padding:14px 2rem;}
+.mobile-menu.open{display:flex;}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:88vh;
+  background:linear-gradient(135deg,#f0fdf4 0%,#fafaf7 50%,#ecfdf5 100%);
+  display:grid;grid-template-columns:1fr 1fr;align-items:center;
+  padding:4rem 2rem 2rem;gap:2rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(16,185,129,.08) 0%,transparent 70%);
+  top:-100px;right:-100px;pointer-events:none;
+}
+.hero-content{animation:fadeUp .7s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--em-light);color:var(--em-dark);font-size:12px;font-weight:600;letter-spacing:.05em;padding:6px 14px;border-radius:100px;margin-bottom:1.5rem;}
+.hero-badge-dot{width:6px;height:6px;background:var(--em);border-radius:50%;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.8rem);font-weight:700;line-height:1.15;color:var(--em-dark);margin-bottom:1.25rem;}
+.hero h1 em{color:var(--em);font-style:normal;}
+.hero p{font-size:16px;line-height:1.75;color:var(--muted);max-width:440px;margin-bottom:2rem;}
+.hero-ctas{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.cta-primary{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:14px 28px;border-radius:10px;background:var(--em);color:white;border:none;cursor:pointer;transition:all .2s;}
+.cta-primary:hover{background:var(--em-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(5,150,105,.3);}
+.cta-secondary{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;color:var(--em-dark);background:transparent;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;transition:gap .2s;}
+.cta-secondary:hover{gap:10px;}
+.hero-stats{display:flex;gap:2rem;margin-top:2.5rem;}
+.stat-item{text-align:left;}
+.stat-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--em-dark);}
+.stat-label{font-size:12px;color:var(--muted);margin-top:2px;}
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center;animation:fadeUp .7s .2s ease both;}
+.food-card-main{width:340px;height:380px;background:linear-gradient(145deg,#f0fdf4,#dcfce7);border-radius:24px;border:1px solid rgba(16,185,129,.2);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.thali-visual{width:200px;height:200px;position:relative;display:flex;align-items:center;justify-content:center;}
+.thali-plate{width:180px;height:180px;border-radius:50%;background:linear-gradient(145deg,#fef9ee,#fef3c7);border:4px solid rgba(217,119,6,.3);display:flex;align-items:center;justify-content:center;position:relative;animation:spin-slow 20s linear infinite;}
+@keyframes spin-slow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.thali-center{width:80px;height:80px;border-radius:50%;background:linear-gradient(145deg,#fde68a,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:32px;animation:spin-slow 20s linear infinite reverse;}
+.thali-item{position:absolute;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;animation:spin-slow 20s linear infinite reverse;}
+.food-label{margin-top:1.5rem;font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--em-dark);text-align:center;}
+.food-sublabel{font-size:13px;color:var(--muted);text-align:center;margin-top:4px;}
+.float-tag{position:absolute;background:white;border-radius:12px;padding:10px 14px;border:.5px solid var(--border);box-shadow:0 4px 16px rgba(0,0,0,.08);font-size:12px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.float-tag-dot{width:8px;height:8px;border-radius:50%;}
+.tag1{top:20px;right:-20px;animation:float1 3s ease-in-out infinite;}
+.tag2{bottom:60px;left:-30px;animation:float2 3.5s ease-in-out infinite;}
+.tag3{top:80px;left:-40px;animation:float1 4s ease-in-out infinite reverse;}
+@keyframes float1{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes float2{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+
+/* ─── SECTIONS ─── */
+section{padding:5rem 2rem;}
+.section-label{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--em);background:var(--em-light);padding:4px 12px;border-radius:100px;margin-bottom:1rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--em-dark);margin-bottom:.75rem;}
+.section-sub{font-size:16px;color:var(--muted);max-width:480px;line-height:1.7;}
+
+/* ─── MENU CALENDAR ─── */
+.menu-section{background:var(--cream);}
+.menu-header{text-align:center;margin-bottom:3rem;}
+.week-nav{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
+.week-nav-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--em);background:white;color:var(--em);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.week-nav-btn:hover{background:var(--em);color:white;}
+.week-label{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--em-dark);min-width:220px;text-align:center;}
+.menu-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;max-width:900px;margin:0 auto;}
+.menu-day{background:white;border-radius:14px;border:1px solid var(--border);padding:14px 10px;text-align:center;cursor:pointer;transition:all .25s;}
+.menu-day:hover,.menu-day.active{border-color:var(--em);transform:translateY(-4px);box-shadow:0 8px 24px rgba(5,150,105,.12);}
+.menu-day.active{background:var(--em-light);}
+.day-name{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.08em;margin-bottom:8px;}
+.day-emoji{font-size:22px;margin-bottom:8px;}
+.day-meal{font-size:11px;font-weight:500;color:var(--em-dark);line-height:1.4;}
+.day-tag{display:inline-block;margin-top:6px;font-size:9px;font-weight:600;letter-spacing:.05em;padding:2px 8px;border-radius:100px;background:var(--em-light);color:var(--em-dark);}
+
+/* ─── PLANS ─── */
+.plans-section{background:white;}
+.plans-header{text-align:center;margin-bottom:3rem;}
+.toggle-wrap{display:flex;justify-content:center;margin-bottom:2.5rem;}
+.toggle-track{display:flex;background:var(--em-light);border-radius:100px;padding:4px;gap:4px;}
+.toggle-opt{font-size:14px;font-weight:500;padding:8px 24px;border-radius:100px;border:none;background:transparent;color:var(--em-dark);cursor:pointer;transition:all .2s;}
+.toggle-opt.active{background:var(--em);color:white;}
+.plans-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:800px;margin:0 auto;}
+.plan-card{border-radius:16px;padding:2rem;border:1px solid var(--border);background:white;position:relative;transition:all .25s;}
+.plan-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.08);}
+.plan-card.featured{border:2px solid var(--em);background:linear-gradient(145deg,#f0fdf4,#fff);}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--em);color:white;font-size:11px;font-weight:700;letter-spacing:.06em;padding:4px 16px;border-radius:100px;white-space:nowrap;}
+.plan-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--em-dark);margin-bottom:6px;}
+.plan-price{font-size:32px;font-weight:700;color:var(--text);}
+.plan-price span{font-size:16px;font-weight:400;color:var(--muted);}
+.plan-desc{font-size:13px;color:var(--muted);margin:10px 0 16px;line-height:1.6;}
+.plan-features{list-style:none;}
+.plan-features li{font-size:13px;color:var(--text);padding:6px 0;border-bottom:.5px solid var(--border);display:flex;align-items:center;gap:8px;}
+.plan-features li:last-child{border-bottom:none;}
+.check{width:16px;height:16px;border-radius:50%;background:var(--em-light);color:var(--em);font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.plan-btn{width:100%;margin-top:1.5rem;padding:12px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;}
+.plan-btn-outline{background:transparent;border:1.5px solid var(--em);color:var(--em-dark);}
+.plan-btn-outline:hover{background:var(--em-light);}
+.plan-btn-fill{background:var(--em);border:none;color:white;}
+.plan-btn-fill:hover{background:var(--em-dark);}
+
+/* ─── TRACK ─── */
+.track-section{background:var(--warm);}
+.track-inner{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;max-width:900px;margin:0 auto;}
+.track-map{background:white;border-radius:20px;overflow:hidden;border:1px solid var(--border);height:340px;position:relative;}
+.map-bg{width:100%;height:100%;background:linear-gradient(180deg,#e8f5e9 0%,#c8e6c9 50%,#a5d6a7 100%);position:relative;}
+.map-road{position:absolute;background:rgba(255,255,255,.7);border-radius:4px;}
+.map-h1{width:80%;height:6px;top:50%;left:10%;transform:translateY(-50%);}
+.map-h2{width:60%;height:4px;top:30%;left:20%;transform:translateY(-50%);}
+.map-v1{width:6px;height:60%;top:20%;left:35%;}
+.map-v2{width:4px;height:40%;top:30%;left:65%;}
+.map-marker{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;}
+.marker-pin{width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;}
+.marker-icon{transform:rotate(45deg);font-size:12px;}
+.origin-pin{background:var(--em);top:55%;left:20%;}
+.dest-pin{background:#f59e0b;top:35%;left:75%;}
+.rider-pin{width:36px;height:36px;border-radius:50%;background:var(--em-dark);top:48%;left:52%;display:flex;align-items:center;justify-content:center;font-size:14px;border:3px solid white;box-shadow:0 2px 12px rgba(0,0,0,.2);animation:rider-move 6s ease-in-out infinite;}
+@keyframes rider-move{0%,100%{left:52%;top:48%;}50%{left:60%;top:44%;}}
+.pulse-ring{position:absolute;width:52px;height:52px;border-radius:50%;border:2px solid var(--em);top:48%;left:52%;transform:translate(-50%,-50%);animation:pulse 2s infinite;}
+@keyframes pulse{0%{transform:translate(-50%,-50%) scale(.8);opacity:1;}100%{transform:translate(-50%,-50%) scale(1.8);opacity:0;}}
+.map-path{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+.eta-chip{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:white;border-radius:12px;padding:10px 20px;border:.5px solid var(--border);box-shadow:0 4px 16px rgba(0,0,0,.1);display:flex;align-items:center;gap:12px;white-space:nowrap;}
+.eta-label{font-size:12px;color:var(--muted);}
+.eta-time{font-size:22px;font-weight:700;color:var(--em-dark);font-family:'Playfair Display',serif;}
+.eta-unit{font-size:12px;color:var(--muted);}
+.track-steps{margin-top:1.5rem;}
+.track-step{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:.5px solid var(--border);}
+.track-step:last-child{border-bottom:none;}
+.step-icon{width:36px;height:36px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.step-icon.done{background:var(--em-light);}
+.step-icon.active{background:var(--em);}
+.step-icon.pending{background:#f3f4f6;}
+.step-text strong{font-size:14px;font-weight:600;color:var(--text);display:block;}
+.step-text span{font-size:12px;color:var(--muted);}
+
+/* ─── REVIEWS ─── */
+.reviews-section{background:white;overflow:hidden;}
+.reviews-header{text-align:center;margin-bottom:3rem;}
+.reviews-track{display:flex;gap:20px;animation:scroll-reviews 30s linear infinite;width:max-content;}
+.reviews-track:hover{animation-play-state:paused;}
+@keyframes scroll-reviews{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.review-card{width:280px;flex-shrink:0;background:var(--cream);border-radius:16px;padding:1.5rem;border:1px solid var(--border);transition:transform .2s,box-shadow .2s;}
+.review-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08);}
+.review-stars{color:#f59e0b;font-size:14px;margin-bottom:10px;letter-spacing:2px;}
+.review-text{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:14px;}
+.review-author{display:flex;align-items:center;gap:10px;}
+.author-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:white;flex-shrink:0;}
+.author-name{font-size:13px;font-weight:600;color:var(--text);}
+.author-loc{font-size:11px;color:var(--muted);}
+
+/* ─── FOOTER ─── */
+footer{background:var(--em-dark);color:rgba(255,255,255,.9);padding:3rem 2rem 2rem;}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;max-width:900px;margin:0 auto;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:white;margin-bottom:.75rem;}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;max-width:200px;}
+.footer-col h4{font-size:13px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.08em;margin-bottom:1rem;}
+.footer-col a{display:block;font-size:14px;color:rgba(255,255,255,.8);text-decoration:none;margin-bottom:8px;cursor:pointer;transition:color .2s;}
+.footer-col a:hover{color:white;}
+.footer-bottom{text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);font-size:13px;color:rgba(255,255,255,.4);}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--em-dark);color:white;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:500;z-index:9999;opacity:0;transform:translateY(16px);transition:all .3s;pointer-events:none;}
+.toast.show{opacity:1;transform:translateY(0);}
+
+/* ─── MODAL ─── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;}
+.modal{background:white;border-radius:20px;padding:2rem;max-width:400px;width:90%;position:relative;animation:fadeUp .3s ease;}
+.modal h3{font-family:'Playfair Display',serif;font-size:22px;color:var(--em-dark);margin-bottom:.5rem;}
+.modal p{font-size:14px;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);}
+.modal-close:hover{color:var(--text);}
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.form-group input,.form-group select{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus{border-color:var(--em);}
+.modal-btn{width:100%;padding:12px;background:var(--em);color:white;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;}
+.modal-btn:hover{background:var(--em-dark);}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:768px){
+  nav{padding:0 1rem;}
+  .nav-links,.nav-actions{display:none;}
+  .hamburger{display:flex;}
+  .hero{grid-template-columns:1fr;padding:5rem 1.5rem 2rem;min-height:auto;gap:3rem;}
+  .hero-visual{order:-1;}
+  .food-card-main{width:280px;height:300px;}
+  .tag1{right:-10px;}
+  .tag2{left:-10px;}
+  .tag3{left:-10px;}
+  .hero-stats{gap:1.2rem;}
+  .stat-num{font-size:22px;}
+  .menu-grid{grid-template-columns:repeat(4,1fr);}
+  .plans-grid{grid-template-columns:1fr;}
+  .plans-grid .plan-card.featured{order:-1;}
+  .track-inner{grid-template-columns:1fr;}
+  .footer-inner{grid-template-columns:1fr 1fr;}
+  section{padding:3.5rem 1.5rem;}
+}
+@media(max-width:480px){
+  .menu-grid{grid-template-columns:repeat(3,1fr);}
+  .footer-inner{grid-template-columns:1fr;}
+  .hero-ctas{flex-direction:column;align-items:flex-start;}
+  .hero-stats{flex-wrap:wrap;gap:1rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Start Your Subscription</h3>
+    <p>Fresh tiffin at your doorstep — fill in your details to get started.</p>
+    <div class="form-group"><label>Your Name</label><input type="text" placeholder="e.g. Rahul Patil"/></div>
+    <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"/></div>
+    <div class="form-group"><label>Delivery Area</label>
+      <select>
+        <option>Select your area</option>
+        <option>Kothrud</option><option>Hinjewadi</option><option>Baner</option>
+        <option>Aundh</option><option>Wakad</option><option>Kharadi</option>
+        <option>Viman Nagar</option><option>Hadapsar</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Plan</label>
+      <select id="modalPlan">
+        <option>Basic — ₹1,299/month</option>
+        <option>Premium — ₹2,199/month</option>
+        <option>Family — ₹3,899/month</option>
+      </select>
+    </div>
+    <button class="modal-btn" onclick="handleOrder()">Confirm & Subscribe 🎉</button>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeLoginModal()">✕</button>
+    <h3>Welcome Back</h3>
+    <p>Login to manage your subscription, track orders, and update your menu preferences.</p>
+    <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"/></div>
+    <div class="form-group"><label>OTP</label><input type="text" placeholder="Enter OTP"/></div>
+    <button class="modal-btn" onclick="handleLogin()">Login →</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#hero"><div class="logo-dot"></div>TiffinWala</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#plans">Plans</a></li>
+    <li><a href="#track">Track Order</a></li>
+    <li><a href="#reviews">About Us</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-login" onclick="openLoginModal()">Login</button>
+    <button class="btn-order" onclick="openModal()">Order Now →</button>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#menu" onclick="closeMobileMenu()">Menu</a>
+  <a href="#plans" onclick="closeMobileMenu()">Plans</a>
+  <a href="#track" onclick="closeMobileMenu()">Track Order</a>
+  <a href="#reviews" onclick="closeMobileMenu()">About Us</a>
+  <div class="mob-btns">
+    <button class="btn-login" style="flex:1" onclick="openLoginModal();closeMobileMenu()">Login</button>
+    <button class="btn-order" style="flex:1" onclick="openModal();closeMobileMenu()">Order Now →</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><div class="hero-badge-dot"></div> Pune's #1 Tiffin Service</div>
+    <h1>Fresh Home-Cooked<br>Meals, <em>Delivered</em><br>Daily</h1>
+    <p>Wholesome, nourishing tiffins made by home chefs — delivered to your doorstep every day. Like Aai's cooking, without the commute home.</p>
+    <div class="hero-ctas">
+      <button class="cta-primary" onclick="openModal()">Start Your Subscription →</button>
+      <button class="cta-secondary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">▷ &nbsp;See This Week's Menu</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num" data-target="12000">0</div><div class="stat-label">Happy customers</div></div>
+      <div class="stat-item"><div class="stat-num" data-target="98" data-suffix="%">0%</div><div class="stat-label">On-time delivery</div></div>
+      <div class="stat-item"><div class="stat-num">4.9★</div><div class="stat-label">Average rating</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="food-card-main">
+      <div class="thali-visual">
+        <div class="thali-plate">
+          <div class="thali-center">🍛</div>
+          <div class="thali-item" style="top:8px;left:50%;transform:translateX(-50%)">🥗</div>
+          <div class="thali-item" style="top:30%;right:2px">🥘</div>
+          <div class="thali-item" style="bottom:8px;left:50%;transform:translateX(-50%)">🫓</div>
+          <div class="thali-item" style="top:30%;left:2px">🥣</div>
+        </div>
+      </div>
+      <div class="food-label">Maharashtrian Thali</div>
+      <div class="food-sublabel">Today's special · 4 items · ₹120</div>
+    </div>
+    <div class="float-tag tag1"><div class="float-tag-dot" style="background:#10b981;"></div>Just delivered 🕐 12:32 PM</div>
+    <div class="float-tag tag2">🌿 No preservatives</div>
+    <div class="float-tag tag3">⭐ 4.9 rating</div>
+  </div>
+</section>
+
+<!-- MENU CALENDAR -->
+<section class="menu-section" id="menu">
+  <div class="menu-header">
+    <div class="section-label">WEEKLY MENU</div>
+    <h2 class="section-title">What's Cooking This Week?</h2>
+    <p class="section-sub" style="margin:0 auto;">A fresh, rotating menu planned by our head nutritionist. Never eat the same thing twice.</p>
+  </div>
+  <div class="week-nav">
+    <button class="week-nav-btn" onclick="changeWeek(-1)">‹</button>
+    <div class="week-label" id="weekLabel">April 21 – April 27, 2026</div>
+    <button class="week-nav-btn" onclick="changeWeek(1)">›</button>
+  </div>
+  <div class="menu-grid" id="menuGrid"></div>
+</section>
+
+<!-- PLANS -->
+<section class="plans-section" id="plans">
+  <div class="plans-header">
+    <div class="section-label">SUBSCRIPTION PLANS</div>
+    <h2 class="section-title">Choose Your Tiffin Plan</h2>
+    <p class="section-sub" style="margin:0 auto;">Flexible plans for every appetite. Cancel or pause anytime.</p>
+  </div>
+  <div class="toggle-wrap">
+    <div class="toggle-track">
+      <button class="toggle-opt active" id="toggleMonthly" onclick="setPricingMode('monthly')">Monthly</button>
+      <button class="toggle-opt" id="toggleWeekly" onclick="setPricingMode('weekly')">Weekly</button>
+    </div>
+  </div>
+  <div class="plans-grid">
+    <div class="plan-card">
+      <div class="plan-name">Basic</div>
+      <div class="plan-price" id="price-basic">₹1,299<span>/month</span></div>
+      <div class="plan-desc">Perfect for solo professionals who want daily lunch delivered.</div>
+      <ul class="plan-features">
+        <li><div class="check">✓</div>1 meal/day (Lunch)</li>
+        <li><div class="check">✓</div>Mon–Fri delivery</li>
+        <li><div class="check">✓</div>Standard menu</li>
+        <li><div class="check">✓</div>Live order tracking</li>
+      </ul>
+      <button class="plan-btn plan-btn-outline" onclick="openModal('Basic')">Get Started</button>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-badge">MOST POPULAR</div>
+      <div class="plan-name">Premium</div>
+      <div class="plan-price" id="price-premium">₹2,199<span>/month</span></div>
+      <div class="plan-desc">2 meals a day, 6 days a week. Full nutrition coverage.</div>
+      <ul class="plan-features">
+        <li><div class="check">✓</div>2 meals/day (Lunch + Dinner)</li>
+        <li><div class="check">✓</div>Mon–Sat delivery</li>
+        <li><div class="check">✓</div>Choose your menu</li>
+        <li><div class="check">✓</div>Priority delivery slot</li>
+        <li><div class="check">✓</div>Free Sunday special</li>
+      </ul>
+      <button class="plan-btn plan-btn-fill" onclick="openModal('Premium')">Get Started</button>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">Family</div>
+      <div class="plan-price" id="price-family">₹3,899<span>/month</span></div>
+      <div class="plan-desc">Feed the whole family. Customizable portions and preferences.</div>
+      <ul class="plan-features">
+        <li><div class="check">✓</div>4 meals/day (Family of 3)</li>
+        <li><div class="check">✓</div>7 days delivery</li>
+        <li><div class="check">✓</div>Fully custom menu</li>
+        <li><div class="check">✓</div>Dedicated account manager</li>
+        <li><div class="check">✓</div>Diet plan consultation</li>
+      </ul>
+      <button class="plan-btn plan-btn-outline" onclick="openModal('Family')">Get Started</button>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK -->
+<section class="track-section" id="track">
+  <div class="track-inner">
+    <div>
+      <div class="section-label">LIVE TRACKING</div>
+      <h2 class="section-title">Track My Meal in Real Time</h2>
+      <p class="section-sub">Know exactly where your tiffin is at all times. From kitchen to doorstep — full transparency.</p>
+      <div class="track-steps">
+        <div class="track-step"><div class="step-icon done">✅</div><div class="step-text"><strong>Order confirmed</strong><span>9:30 AM · Your meal is being prepared</span></div></div>
+        <div class="track-step"><div class="step-icon done">🍳</div><div class="step-text"><strong>Being cooked</strong><span>11:00 AM · Dal tadka on the stove</span></div></div>
+        <div class="track-step"><div class="step-icon active">🛵</div><div class="step-text"><strong>Out for delivery</strong><span>12:15 PM · Raju is on the way · ETA 12 min</span></div></div>
+        <div class="track-step"><div class="step-icon pending">🏠</div><div class="step-text"><strong>Delivered</strong><span>Awaiting arrival at your doorstep</span></div></div>
+      </div>
+    </div>
+    <div class="track-map">
+      <div class="map-bg">
+        <div class="map-road map-h1"></div>
+        <div class="map-road map-h2"></div>
+        <div class="map-road map-v1"></div>
+        <div class="map-road map-v2"></div>
+        <svg class="map-path" viewBox="0 0 340 340">
+          <path d="M68 187 Q120 187 135 170 Q155 145 176 163 Q200 183 215 118" fill="none" stroke="#059669" stroke-width="2.5" stroke-dasharray="6 4" opacity="0.7"/>
+        </svg>
+        <div class="map-marker origin-pin marker-pin"><div class="marker-icon">🏠</div></div>
+        <div class="map-marker dest-pin marker-pin" style="top:35%;left:75%;"><div class="marker-icon">📍</div></div>
+        <div class="map-marker rider-pin" style="top:48%;left:52%;">🛵</div>
+        <div class="pulse-ring"></div>
+        <div class="eta-chip">
+          <div><div class="eta-label">Arriving in</div></div>
+          <div class="eta-time" id="etaTime">12</div>
+          <div class="eta-unit">minutes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="reviews-header">
+    <div class="section-label">CUSTOMER LOVE</div>
+    <h2 class="section-title">What Our Subscribers Say</h2>
+  </div>
+  <div style="overflow:hidden;margin:0 -2rem;">
+    <div class="reviews-track">
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Finally found something that tastes like home. The dal makhani on Thursdays is absolutely divine. Worth every rupee!"</div><div class="review-author"><div class="author-avatar" style="background:#059669;">PP</div><div><div class="author-name">Priya Patil</div><div class="author-loc">Kothrud, Pune · 8 months subscriber</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"As a software engineer with long hours, this has been a lifesaver. Hot, fresh food every afternoon — no more ordering junk."</div><div class="review-author"><div class="author-avatar" style="background:#7c3aed;">RS</div><div><div class="author-name">Rahul Shah</div><div class="author-loc">Hinjewadi, Pune · 1 year subscriber</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"The family plan is incredible value. My kids love the Sunday special thali, and I love that I didn't cook it!"</div><div class="review-author"><div class="author-avatar" style="background:#b45309;">SM</div><div><div class="author-name">Sunita More</div><div class="author-loc">Wakad, Pune · 6 months subscriber</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Punctual every single day. I check the app and it's always exactly on time. The live tracking feature is super reassuring."</div><div class="review-author"><div class="author-avatar" style="background:#dc2626;">AK</div><div><div class="author-name">Arjun Kulkarni</div><div class="author-loc">Baner, Pune · 14 months subscriber</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"I was skeptical at first but the food quality genuinely surprised me. Fresh ingredients, authentic flavors — highly recommended."</div><div class="review-author"><div class="author-avatar" style="background:#0284c7;">ND</div><div><div class="author-name">Neha Desai</div><div class="author-loc">Aundh, Pune · 4 months subscriber</div></div></div></div>
+      <!-- Duplicates for seamless loop -->
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Finally found something that tastes like home. The dal makhani on Thursdays is absolutely divine. Worth every rupee!"</div><div class="review-author"><div class="author-avatar" style="background:#059669;">PP</div><div><div class="author-name">Priya Patil</div><div class="author-loc">Kothrud, Pune · 8 months subscriber</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"As a software engineer with long hours, this has been a lifesaver. Hot, fresh food every afternoon — no more ordering junk."</div><div class="review-author"><div class="author-avatar" style="background:#7c3aed;">RS</div><div><div class="author-name">Rahul Shah</div><div class="author-loc">Hinjewadi, Pune · 1 year subscriber</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"The family plan is incredible value. My kids love the Sunday special thali, and I love that I didn't cook it!"</div><div class="review-author"><div class="author-avatar" style="background:#b45309;">SM</div><div><div class="author-name">Sunita More</div><div class="author-loc">Wakad, Pune · 6 months subscriber</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Punctual every single day. I check the app and it's always exactly on time. The live tracking feature is super reassuring."</div><div class="review-author"><div class="author-avatar" style="background:#dc2626;">AK</div><div><div class="author-name">Arjun Kulkarni</div><div class="author-loc">Baner, Pune · 14 months subscriber</div></div></div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"I was skeptical at first but the food quality genuinely surprised me. Fresh ingredients, authentic flavors — highly recommended."</div><div class="review-author"><div class="author-avatar" style="background:#0284c7;">ND</div><div><div class="author-name">Neha Desai</div><div class="author-loc">Aundh, Pune · 4 months subscriber</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">🌿 TiffinWala</div>
+      <div class="footer-tagline">Home-cooked meals, delivered with love. Serving Pune since 2021.</div>
+    </div>
+    <div class="footer-col">
+      <h4>MENU</h4>
+      <a href="#menu">This Week's Menu</a>
+      <a href="#menu">Veg Options</a>
+      <a href="#menu">Non-Veg Options</a>
+      <a href="#menu">Special Diets</a>
+    </div>
+    <div class="footer-col">
+      <h4>PLANS</h4>
+      <a href="#plans">Basic Plan</a>
+      <a href="#plans">Premium Plan</a>
+      <a href="#plans">Family Plan</a>
+      <a href="#plans">Corporate Orders</a>
+    </div>
+    <div class="footer-col">
+      <h4>SUPPORT</h4>
+      <a href="#track">Track My Order</a>
+      <a onclick="showToast('📞 Call us: +91 98765 43210')">Contact Us</a>
+      <a onclick="showToast('FAQs coming soon!')">FAQs</a>
+      <a onclick="showToast('Login to pause or cancel your plan.')">Pause/Cancel</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 TiffinWala. Made with ❤️ in Pune, Maharashtra.</div>
+</footer>
+
+<script>
+// ─── WEEKLY MENU DATA ───
+const weeklyMenus = [
+  {
+    weekStart: new Date(2026,3,14), // April 14
+    days:[
+      {name:'MON',emoji:'🍲',meal:'Dal Fry + Steamed Rice + Pickle',tag:'VEG',tagStyle:''},
+      {name:'TUE',emoji:'🥘',meal:'Rajma Chawal + Kachumber',tag:'VEG',tagStyle:''},
+      {name:'WED',emoji:'🍗',meal:'Mutton Curry + Bhakri + Salad',tag:'NON-VEG',tagStyle:'background:#fef3c7;color:#92400e;'},
+      {name:'THU',emoji:'🥗',meal:'Methi Thepla + Dahi + Chutney',tag:'VEG',tagStyle:''},
+      {name:'FRI',emoji:'🐟',meal:'Pomfret Fry + Rice + Sol Kadhi',tag:'NON-VEG',tagStyle:'background:#fef3c7;color:#92400e;'},
+      {name:'SAT',emoji:'🧆',meal:'Vada Pav + Sabudana Khichdi',tag:'VEG',tagStyle:''},
+      {name:'SUN',emoji:'🍱',meal:'Grand Sunday Thali (8 items)',tag:'SPECIAL',tagStyle:'background:#fce7f3;color:#9d174d;'},
+    ]
+  },
+  {
+    weekStart: new Date(2026,3,21), // April 21
+    days:[
+      {name:'MON',emoji:'🍲',meal:'Dal Tadka + Jeera Rice + Sabzi',tag:'VEG',tagStyle:''},
+      {name:'TUE',emoji:'🥘',meal:'Chole Bhature + Raita',tag:'VEG',tagStyle:''},
+      {name:'WED',emoji:'🍗',meal:'Chicken Curry + Roti + Salad',tag:'NON-VEG',tagStyle:'background:#fef3c7;color:#92400e;'},
+      {name:'THU',emoji:'🥗',meal:'Palak Paneer + Paratha + Dal',tag:'VEG',tagStyle:''},
+      {name:'FRI',emoji:'🐟',meal:'Fish Curry + Rice + Koshimbir',tag:'NON-VEG',tagStyle:'background:#fef3c7;color:#92400e;'},
+      {name:'SAT',emoji:'🧆',meal:'Misal Pav + Poha + Chai',tag:'VEG',tagStyle:''},
+      {name:'SUN',emoji:'🍱',meal:'Special Sunday Thali (7 items)',tag:'SPECIAL',tagStyle:'background:#fce7f3;color:#9d174d;'},
+    ]
+  },
+  {
+    weekStart: new Date(2026,3,28), // April 28
+    days:[
+      {name:'MON',emoji:'🍜',meal:'Pav Bhaji + Buttermilk',tag:'VEG',tagStyle:''},
+      {name:'TUE',emoji:'🥙',meal:'Egg Curry + Bhakri + Salad',tag:'NON-VEG',tagStyle:'background:#fef3c7;color:#92400e;'},
+      {name:'WED',emoji:'🥦',meal:'Paneer Butter Masala + Naan',tag:'VEG',tagStyle:''},
+      {name:'THU',emoji:'🍗',meal:'Chicken Biryani + Raita',tag:'NON-VEG',tagStyle:'background:#fef3c7;color:#92400e;'},
+      {name:'FRI',emoji:'🥗',meal:'Usal + Rice + Papad + Pickle',tag:'VEG',tagStyle:''},
+      {name:'SAT',emoji:'🧇',meal:'Dosa + Sambhar + Coconut Chutney',tag:'VEG',tagStyle:''},
+      {name:'SUN',emoji:'🍱',meal:'Festive Thali — 9 items',tag:'SPECIAL',tagStyle:'background:#fce7f3;color:#9d174d;'},
+    ]
+  }
+];
+
+const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+let currentWeekIndex = 1; // Start at April 21 week
+let activeDay = new Date().getDay();
+
+function formatWeekLabel(weekStart){
+  const end = new Date(weekStart);
+  end.setDate(end.getDate()+6);
+  return `${monthNames[weekStart.getMonth()]} ${weekStart.getDate()} – ${monthNames[end.getMonth()]} ${end.getDate()}, ${end.getFullYear()}`;
+}
+
+function renderMenu(){
+  const w = weeklyMenus[currentWeekIndex];
+  document.getElementById('weekLabel').textContent = formatWeekLabel(w.weekStart);
+  const today = new Date();
+  const todayStr = today.toDateString();
+  const grid = document.getElementById('menuGrid');
+  grid.innerHTML = w.days.map((d,i)=>{
+    const dayDate = new Date(w.weekStart);
+    dayDate.setDate(dayDate.getDate()+i);
+    const isToday = dayDate.toDateString()===todayStr;
+    return `<div class="menu-day${isToday?' active':''}" onclick="selectDay(this)">
+      <div class="day-name">${d.name}</div>
+      <div class="day-emoji">${d.emoji}</div>
+      <div class="day-meal">${d.meal}</div>
+      <div class="day-tag" style="${d.tagStyle}">${d.tag}</div>
+    </div>`;
+  }).join('');
+}
+
+function selectDay(el){
+  document.querySelectorAll('.menu-day').forEach(d=>d.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function changeWeek(dir){
+  const next = currentWeekIndex+dir;
+  if(next<0||next>=weeklyMenus.length){showToast(dir<0?'No previous week available!':'No upcoming week data yet!');return;}
+  currentWeekIndex=next;
+  renderMenu();
+}
+
+// ─── PRICING TOGGLE ───
+const prices = {
+  monthly:{basic:'₹1,299',premium:'₹2,199',family:'₹3,899',suffix:'/month'},
+  weekly:{basic:'₹349',premium:'₹599',family:'₹999',suffix:'/week'},
+};
+
+function setPricingMode(mode){
+  document.getElementById('toggleMonthly').classList.toggle('active',mode==='monthly');
+  document.getElementById('toggleWeekly').classList.toggle('active',mode==='weekly');
+  const p = prices[mode];
+  document.getElementById('price-basic').innerHTML = `${p.basic}<span>${p.suffix}</span>`;
+  document.getElementById('price-premium').innerHTML = `${p.premium}<span>${p.suffix}</span>`;
+  document.getElementById('price-family').innerHTML = `${p.family}<span>${p.suffix}</span>`;
+}
+
+// ─── MODAL ───
+function openModal(plan){
+  if(plan){
+    const sel = document.getElementById('modalPlan');
+    for(let i=0;i<sel.options.length;i++){
+      if(sel.options[i].text.startsWith(plan)){sel.selectedIndex=i;break;}
+    }
+  }
+  document.getElementById('orderModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('orderModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function openLoginModal(){
+  document.getElementById('loginModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLoginModal(){
+  document.getElementById('loginModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',function(e){if(e.target===this){closeModal();closeLoginModal();}});
+});
+
+function handleOrder(){
+  closeModal();
+  showToast('🎉 Subscription confirmed! We\'ll call you shortly.');
+}
+function handleLogin(){
+  closeLoginModal();
+  showToast('✅ Logged in successfully! Welcome back.');
+}
+
+// ─── TOAST ───
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ─── MOBILE NAV ───
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobileMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// ─── ETA COUNTDOWN ───
+let eta = 12;
+setInterval(()=>{
+  if(eta>0){eta--;document.getElementById('etaTime').textContent=eta;}
+  else{document.getElementById('etaTime').textContent='Now!';document.querySelector('.step-icon.pending').textContent='✅';document.querySelector('.step-icon.pending').classList.remove('pending');document.querySelector('.step-icon.pending')?.classList.add('done');}
+},60000);
+
+// ─── STAT COUNTER ANIMATION ───
+function animateCounters(){
+  document.querySelectorAll('.stat-num[data-target]').forEach(el=>{
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix||'';
+    let start = 0;
+    const duration = 1500;
+    const step = target/(duration/16);
+    const timer = setInterval(()=>{
+      start += step;
+      if(start>=target){
+        clearInterval(timer);
+        el.textContent = target>=1000?(target/1000).toFixed(0)+'K+':target+suffix;
+      } else {
+        el.textContent = start>=1000?(start/1000).toFixed(1)+'K+':Math.floor(start)+suffix;
+      }
+    },16);
+  });
+}
+
+// ─── INTERSECTION OBSERVER for counter animation ───
+const heroSection = document.querySelector('.hero');
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){animateCounters();observer.unobserve(e.target);}});
+},{threshold:0.3});
+observer.observe(heroSection);
+
+// ─── INIT ───
+renderMenu();
+</script>
+</body>
+</html>
